@@ -19,8 +19,9 @@ defmodule FizzBuzzWeb.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", FizzBuzzWeb do
-  #   pipe_through :api
-  # end
+   scope "/api", FizzBuzzWeb do
+     pipe_through :api
+
+     get "/numbers", NumbersController, :index
+   end
 end
