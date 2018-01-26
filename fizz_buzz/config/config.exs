@@ -5,17 +5,11 @@
 # is restricted to this project.
 use Mix.Config
 
-# General application configuration
-config :fizz_buzz,
-  ecto_repos: [FizzBuzz.Repo]
-
 # Configures the endpoint
 config :fizz_buzz, FizzBuzzWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "rmXXj9e1vYZmAJFlQtixrZIY4+oDc2CfCZRrQicrRvWOSzbp990+ZTkmt5SUvkFh",
-  render_errors: [view: FizzBuzzWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: FizzBuzz.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  render_errors: [view: FizzBuzzWeb.ErrorView, accepts: ~w(html json)]
 
 # Configures Elixir's Logger
 config :logger, :console,

@@ -35,7 +35,6 @@ config :fizz_buzz, FizzBuzzWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
-      ~r{priv/gettext/.*(po)$},
       ~r{lib/fizz_buzz_web/views/.*(ex)$},
       ~r{lib/fizz_buzz_web/templates/.*(eex)$}
     ]
@@ -48,11 +47,3 @@ config :logger, :console, format: "[$level] $message\n"
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
 
-# Configure your database
-config :fizz_buzz, FizzBuzz.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "fizz_buzz_dev",
-  hostname: "localhost",
-  pool_size: 10

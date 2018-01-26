@@ -8,8 +8,6 @@ defmodule FizzBuzz.Application do
 
     # Define workers and child supervisors to be supervised
     children = [
-      # Start the Ecto repository
-      supervisor(FizzBuzz.Repo, []),
       # Start the endpoint when the application starts
       supervisor(FizzBuzzWeb.Endpoint, []),
       # Start your own worker by calling: FizzBuzz.Worker.start_link(arg1, arg2, arg3)

@@ -22,7 +22,6 @@ defmodule FizzBuzzWeb do
       use Phoenix.Controller, namespace: FizzBuzzWeb
       import Plug.Conn
       import FizzBuzzWeb.Router.Helpers
-      import FizzBuzzWeb.Gettext
     end
   end
 
@@ -39,7 +38,6 @@ defmodule FizzBuzzWeb do
 
       import FizzBuzzWeb.Router.Helpers
       import FizzBuzzWeb.ErrorHelpers
-      import FizzBuzzWeb.Gettext
     end
   end
 
@@ -48,13 +46,6 @@ defmodule FizzBuzzWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
-    end
-  end
-
-  def channel do
-    quote do
-      use Phoenix.Channel
-      import FizzBuzzWeb.Gettext
     end
   end
 
