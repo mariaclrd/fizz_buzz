@@ -1,4 +1,4 @@
-defmodule FizzBuzzWeb.NumbersControllerTest do
+defmodule FizzBuzzWeb.NumberControllerTest do
   use FizzBuzzWeb.ConnCase
 
   describe "GET /api/numbers" do

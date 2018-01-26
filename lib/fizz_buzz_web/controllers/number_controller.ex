@@ -1,4 +1,4 @@
-defmodule FizzBuzzWeb.NumbersController do
+defmodule FizzBuzzWeb.NumberController do
   use FizzBuzzWeb, :controller
 
   def index(conn, _params) do
