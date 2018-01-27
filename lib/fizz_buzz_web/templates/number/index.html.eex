@@ -5,5 +5,5 @@
         <b> Number: </b> <%= n[:number] %>
         <b> FizzBuzz: </b> <%= n[:fizz_buzz_value] %>
         </li>
-    <%= end) %>
+    <% end) %>
 </div>
