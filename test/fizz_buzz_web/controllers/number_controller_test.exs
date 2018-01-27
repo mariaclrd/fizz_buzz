@@ -12,7 +12,7 @@ defmodule FizzBuzzWeb.NumberControllerTest do
 
       body = json_response(conn, 200)
 
-      assert (body["entries"] |> List.first) == %{ "number" => 1}
+      assert (body["entries"] |> List.first) == %{"number" => 1, "fizz_buzz_value" => 1}
       assert (body["entries"] |> length) == 100
     end
 

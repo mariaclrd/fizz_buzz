@@ -6,7 +6,7 @@ defmodule FizzBuzzWeb.NumberViewTest do
   test "as_json" do
     json_number = NumberView.as_json(1)
 
-    assert json_number == %{  number: 1 }
+    assert json_number == %{  number: 1, fizz_buzz_value: 1}
   end
 
   describe "pagination" do
@@ -49,7 +49,7 @@ defmodule FizzBuzzWeb.NumberViewTest do
     test "returns the entries" do
       json_numbers = NumberView.render("index.json", %{numbers: [1, 2]})
 
-      assert json_numbers[:entries] ==  [%{number: 1}, %{number: 2}]
+      assert json_numbers[:entries] ==  [%{number: 1, fizz_buzz_value: 1}, %{number: 2, fizz_buzz_value: 2}]
     end
 
 

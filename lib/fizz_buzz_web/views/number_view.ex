@@ -1,6 +1,6 @@
 defmodule FizzBuzzWeb.NumberView do
   alias FizzBuzz.Numbers.Pagination
-  alias FizzBuzz.Numbers.Number
+  alias FizzBuzz.Numbers.FizzBuzzCalculator
 
   def render("index.json", %{numbers: numbers}) do
     %{
@@ -11,7 +11,8 @@ defmodule FizzBuzzWeb.NumberView do
 
   def as_json(number) do
     %{
-      number: number
+      number: number,
+      fizz_buzz_value: FizzBuzzCalculator.for(number)
     }
   end
 
