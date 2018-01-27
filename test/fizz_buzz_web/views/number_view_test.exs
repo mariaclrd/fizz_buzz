@@ -9,6 +9,13 @@ defmodule FizzBuzzWeb.NumberViewTest do
     assert json_number == %{  number: 1, fizz_buzz_value: 1}
   end
 
+  describe "entries" do
+    test "only returns the entries" do
+      entries = NumberView.entries(%{numbers: [1], current_page: 1, page_size: 1})
+      assert entries == [%{  number: 1, fizz_buzz_value: 1}]
+    end
+  end
+
   describe "pagination" do
 
     test "returns the expected values" do
