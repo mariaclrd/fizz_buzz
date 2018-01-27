@@ -106,5 +106,10 @@ defmodule FizzBuzzWeb.NumberControllerTest do
       assert html_response(conn, 200) =~ "Previous Page"
       assert html_response(conn, 200) =~ "?current_page=1"
     end
+
+    test "has an input field to change the page size" do
+      conn = do_html_request()
+      assert html_response(conn, 200) =~ "Page size"
+    end
   end
 end

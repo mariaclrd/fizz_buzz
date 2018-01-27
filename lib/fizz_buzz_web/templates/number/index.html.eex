@@ -6,8 +6,17 @@
         <b> FizzBuzz: </b> <%= n[:fizz_buzz_value] %>
         </li>
     <% end) %>
-    <%= if @current_page > 1 do %>
-        <%= link("Previous Page", to: "?current_page=#{@current_page - 1}") %>
+
+    <%= form_for @conn, number_path(@conn, :index), [method: "get"], fn f -> %>
+      <label>
+        Page size: <%= text_input f, :page_size%>
+      </label>
+
+      <%= submit "Submit" %>
     <% end %>
-    <%= link("Next Page", to: "?current_page=#{@current_page + 1}") %>
+
+    <%= if @current_page > 1 do %>
+        <%= link("Previous Page", to: "?current_page=#{@current_page - 1}&page_size=#{@page_size}") %>
+    <% end %>
+    <%= link("Next Page", to: "?current_page=#{@current_page + 1}&page_size=#{@page_size}") %>
 </div>
