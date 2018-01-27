@@ -46,6 +46,19 @@ defmodule FizzBuzzWeb.NumberControllerTest do
                "total_entries" => 100_000_000_000
              }
     end
+
+    test "works also when passing strings" do
+      conn = do_request(%{current_page: "2", page_size: "200"})
+
+      body = json_response(conn, 200)
+
+      assert (body["entries"] |> List.first) == %{"number" => 201, "fizz_buzz_value" => "Fizz"}
+      assert body["pagination"] == %{
+               "total_pages" => 500_000_000,
+               "current_page" => 2,
+               "total_entries" => 100_000_000_000
+             }
+    end
   end
 
   describe "GET /" do
@@ -75,6 +88,23 @@ defmodule FizzBuzzWeb.NumberControllerTest do
     test "allows to specify a page" do
       conn = do_html_request(%{current_page: 2, page_size: 200})
       assert html_response(conn, 200) =~ "<b> Number: </b> 201\n        <b> FizzBuzz: </b> Fizz\n"
+    end
+
+    test "works also when passing strings as values" do
+      conn = do_html_request(%{current_page: "2", page_size: "200"})
+      assert html_response(conn, 200) =~ "<b> Number: </b> 201\n        <b> FizzBuzz: </b> Fizz\n"
+    end
+
+    test "it has a link to the nex page" do
+      conn = do_html_request()
+      assert html_response(conn, 200) =~ "Next Page"
+      assert html_response(conn, 200) =~ "?current_page=2"
+    end
+
+    test "it has a link to the next page if the user is not in the first page" do
+      conn = do_html_request(%{current_page: 2})
+      assert html_response(conn, 200) =~ "Previous Page"
+      assert html_response(conn, 200) =~ "?current_page=1"
     end
   end
 end

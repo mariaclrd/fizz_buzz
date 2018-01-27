@@ -6,4 +6,8 @@
         <b> FizzBuzz: </b> <%= n[:fizz_buzz_value] %>
         </li>
     <% end) %>
+    <%= if @current_page > 1 do %>
+        <%= link("Previous Page", to: "?current_page=#{@current_page - 1}") %>
+    <% end %>
+    <%= link("Next Page", to: "?current_page=#{@current_page + 1}") %>
 </div>

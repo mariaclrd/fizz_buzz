@@ -9,7 +9,9 @@ use Mix.Config
 config :fizz_buzz, FizzBuzzWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "rmXXj9e1vYZmAJFlQtixrZIY4+oDc2CfCZRrQicrRvWOSzbp990+ZTkmt5SUvkFh",
-  render_errors: [view: FizzBuzzWeb.ErrorView, accepts: ~w(html json)]
+  render_errors: [view: FizzBuzzWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: FizzBuzz.PubSub,
+                 adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
