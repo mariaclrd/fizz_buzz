@@ -47,14 +47,14 @@ defmodule FizzBuzzWeb.NumberViewTest do
   describe "render index.json" do
 
     test "returns the entries" do
-      json_numbers = NumberView.render("index.json", %{numbers: [1, 2]})
+      json_numbers = NumberView.render("index.json", %{numbers: [1, 2], current_page: 1, page_size: 5})
 
       assert json_numbers[:entries] ==  [%{number: 1, fizz_buzz_value: 1}, %{number: 2, fizz_buzz_value: 2}]
     end
 
 
     test "renders the pagination" do
-      json_numbers = NumberView.render("index.json", %{numbers: [1, 2]})
+      json_numbers = NumberView.render("index.json", %{numbers: [1, 2], current_page: 1, page_size: 5})
 
       assert json_numbers[:pagination] == %{total_entries: 2, total_pages: 1, current_page: 1}
     end

@@ -22,9 +22,23 @@ defmodule FizzBuzzWeb.NumberControllerTest do
       body = json_response(conn, 200)
 
       assert body["pagination"] == %{
-               "total_pages" => 10000000000,
+               "total_pages" => 1_000_000_000,
                "current_page" => 1,
-               "total_entries" => 100000000000
+               "total_entries" => 100_000_000_000
+             }
+    end
+
+    test "returns the specified page when passing pagination values" do
+      conn = build_conn()
+      conn = get conn, "api/numbers", %{current_page: 2, page_size: 200}
+
+      body = json_response(conn, 200)
+
+      assert (body["entries"] |> List.first) == %{"number" => 201, "fizz_buzz_value" => "Fizz"}
+      assert body["pagination"] == %{
+               "total_pages" => 500_000_000,
+               "current_page" => 2,
+               "total_entries" => 100_000_000_000
              }
     end
   end

@@ -14,7 +14,9 @@ defmodule FizzBuzzWeb.Router do
   end
 
   scope "/", FizzBuzzWeb do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
+
+
   end
 
    scope "/api", FizzBuzzWeb do
