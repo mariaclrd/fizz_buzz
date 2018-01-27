@@ -1,7 +1,10 @@
 defmodule FizzBuzzWeb.NumberView do
+  alias FizzBuzz.Numbers.Pagination
+  alias FizzBuzz.Numbers.Number
+
   def render("index.json", %{numbers: numbers}) do
     %{
-      entries: Enum.map(numbers, &as_json/1),
+      entries: Pagination.entries(numbers) |> Enum.map(&as_json/1),
       pagination: pagination(numbers)
     }
   end
@@ -14,16 +17,9 @@ defmodule FizzBuzzWeb.NumberView do
 
   def pagination(numbers, page_size\\10, current_page\\1) do
     %{
-      total_entries: length(numbers),
-      total_pages: total_pages(numbers, page_size),
+      total_entries: Pagination.total_entries(numbers),
+      total_pages: Pagination.total_pages(numbers, page_size),
       current_page: current_page
     }
-  end
-
-  defp total_pages(numbers, page_size\\10) do
-    length(numbers)
-    |> (Kernel./page_size)
-    |> Float.ceil
-    |> Kernel.trunc
   end
 end

@@ -12,7 +12,8 @@ defmodule FizzBuzzWeb.NumberControllerTest do
 
       body = json_response(conn, 200)
 
-      assert body["entries"] == [%{ "number" => 1}]
+      assert (body["entries"] |> List.first) == %{ "number" => 1}
+      assert (body["entries"] |> length) == 100
     end
 
     test "returns the expected body with the pagination", %{conn: conn} do
@@ -21,9 +22,9 @@ defmodule FizzBuzzWeb.NumberControllerTest do
       body = json_response(conn, 200)
 
       assert body["pagination"] == %{
-               "total_pages" => 1,
+               "total_pages" => 10000000000,
                "current_page" => 1,
-               "total_entries" => 1
+               "total_entries" => 100000000000
              }
     end
   end
