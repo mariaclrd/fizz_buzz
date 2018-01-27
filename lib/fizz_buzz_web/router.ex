@@ -23,5 +23,6 @@ defmodule FizzBuzzWeb.Router do
      pipe_through :api
 
      get "/numbers", NumberController, :index
+     post "/favourites", FavouriteController, :create
    end
 end

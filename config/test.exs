@@ -9,3 +9,11 @@ config :fizz_buzz, FizzBuzzWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+config :fizz_buzz, FizzBuzz.Repo,
+       adapter: Ecto.Adapters.Postgres,
+       username: "postgres",
+       password: "postgres",
+       database: "fizz_buzz_test",
+       hostname: "localhost",
+       pool: Ecto.Adapters.SQL.Sandbox
+

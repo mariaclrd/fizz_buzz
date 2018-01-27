@@ -5,6 +5,9 @@
 # is restricted to this project.
 use Mix.Config
 
+config :fizz_buzz,
+       ecto_repos: [FizzBuzz.Repo]
+
 # Configures the endpoint
 config :fizz_buzz, FizzBuzzWeb.Endpoint,
   url: [host: "localhost"],

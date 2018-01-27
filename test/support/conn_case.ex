@@ -27,8 +27,11 @@ defmodule FizzBuzzWeb.ConnCase do
   end
 
 
-  setup do
+  setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(FizzBuzz.Repo)
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(FizzBuzz.Repo, {:shared, self()})
+    end
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
-
 end
