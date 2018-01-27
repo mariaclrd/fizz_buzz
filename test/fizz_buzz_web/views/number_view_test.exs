@@ -21,7 +21,7 @@ defmodule FizzBuzzWeb.NumberViewTest do
              }
     end
 
-    test "divides the collection based on the page size" do
+    test "divides the collection based on the number size" do
       pagination = NumberView.pagination([1,2], 1)
 
       assert pagination == %{
@@ -32,7 +32,7 @@ defmodule FizzBuzzWeb.NumberViewTest do
 
     end
 
-    test "it allows you to specify the page" do
+    test "it allows you to specify the number" do
       pagination = NumberView.pagination([1,2], 1, 2)
 
       assert pagination == %{

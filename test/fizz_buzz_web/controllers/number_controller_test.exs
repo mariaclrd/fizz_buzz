@@ -1,13 +1,13 @@
 defmodule FizzBuzzWeb.NumberControllerTest do
   use FizzBuzzWeb.ConnCase
 
-  def do_request(params \\ %{}) do
-    conn = build_conn()
-
-    get conn, "api/numbers", Map.merge(%{"format" => "json"}, params)
-  end
-
   describe "GET /api/numbers" do
+    def do_request(params \\ %{}) do
+      conn = build_conn()
+
+      get conn, "api/numbers", Map.merge(%{"format" => "json"}, params)
+    end
+
     test "returns 200" do
       resp = do_request()
       assert resp.status == 200
@@ -34,7 +34,7 @@ defmodule FizzBuzzWeb.NumberControllerTest do
              }
     end
 
-    test "returns the specified page when passing pagination values" do
+    test "returns the specified number when passing pagination values" do
       conn = do_request(%{current_page: 2, page_size: 200})
 
       body = json_response(conn, 200)
@@ -45,6 +45,36 @@ defmodule FizzBuzzWeb.NumberControllerTest do
                "current_page" => 2,
                "total_entries" => 100_000_000_000
              }
+    end
+  end
+
+  describe "GET /" do
+    def do_html_request(params \\ %{}) do
+      conn = build_conn()
+
+      get conn, "/", Map.merge(%{"format" => "html"}, params)
+    end
+
+    test "returns 200" do
+      conn = do_html_request()
+
+      assert conn.status == 200
+    end
+
+    test "returns the header of the number list" do
+      conn = do_html_request()
+      assert html_response(conn, 200) =~ "List of FizzBuzz Numbers"
+    end
+
+    test "shows the list of numbers" do
+      conn = do_html_request()
+      assert html_response(conn, 200) =~ "<b> Number: </b> 1\n        <b> FizzBuzz: </b> 1\n"
+      assert html_response(conn, 200) =~ "<b> Number: </b> 100\n        <b> FizzBuzz: </b> Buzz\n"
+    end
+
+    test "allows to specify a page" do
+      conn = do_html_request(%{current_page: 2, page_size: 200})
+      assert html_response(conn, 200) =~ "<b> Number: </b> 201\n        <b> FizzBuzz: </b> Fizz\n"
     end
   end
 end

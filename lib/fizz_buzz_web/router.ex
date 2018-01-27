@@ -16,7 +16,7 @@ defmodule FizzBuzzWeb.Router do
   scope "/", FizzBuzzWeb do
     pipe_through :browser
 
-
+    get "/", NumberController, :index
   end
 
    scope "/api", FizzBuzzWeb do

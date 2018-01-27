@@ -4,13 +4,13 @@ defmodule FizzBuzz.Numbers.PaginationTest do
   alias FizzBuzz.Numbers.Number
 
   describe "entries" do
-    test "returns the entries for an specific page and limit" do
+    test "returns the entries for an specific number and limit" do
       entries =  Number.all |> Pagination.entries(1, 100)
       assert List.first(entries) == 1
       assert List.last(entries) == 100
     end
 
-    test "works also for the second page" do
+    test "works also for the second number" do
       entries =  Number.all |> Pagination.entries(2, 100)
       assert List.first(entries) == 101
       assert List.last(entries) == 200

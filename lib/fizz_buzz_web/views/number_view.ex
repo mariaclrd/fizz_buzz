@@ -1,10 +1,19 @@
 defmodule FizzBuzzWeb.NumberView do
+  use FizzBuzzWeb, :view
   alias FizzBuzz.Numbers.Pagination
   alias FizzBuzz.Numbers.FizzBuzzCalculator
 
   @pagination_defaults %{current_page: 1, page_size: 100}
 
+  def entries(args) do
+    collection_as_json(args)[:entries]
+  end
+
   def render("index.json", args) do
+    collection_as_json(args)
+  end
+
+  def collection_as_json(args) do
     %{numbers: numbers, current_page: current_page, page_size: page_size} = merge_pagination_defaults(args)
     %{
       entries: Pagination.entries(numbers, current_page, page_size) |> Enum.map(&as_json/1),

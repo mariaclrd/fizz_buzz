@@ -7,4 +7,12 @@ defmodule FizzBuzzWeb.NumberController do
       current_page: params["current_page"],
       page_size: params["page_size"]})
   end
+
+  def index(conn, params) do
+    conn
+    |> assign(:numbers, Number.all)
+    |> assign(:current_page, params["current_page"])
+    |> assign(:page_size, params["page_size"])
+    |> render :index
+  end
 end
