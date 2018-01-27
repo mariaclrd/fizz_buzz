@@ -1,14 +1,20 @@
 defmodule FizzBuzzWeb.NumberControllerTest do
   use FizzBuzzWeb.ConnCase
 
+  def do_request(params \\ %{}) do
+    conn = build_conn()
+
+    get conn, "api/numbers", Map.merge(%{"format" => "json"}, params)
+  end
+
   describe "GET /api/numbers" do
-    test "returns 200", %{conn: conn} do
-      resp = get conn, "/api/numbers"
+    test "returns 200" do
+      resp = do_request()
       assert resp.status == 200
     end
 
-    test "returns the expected body with the entries", %{conn: conn} do
-      conn = get conn, "api/numbers"
+    test "returns the expected body with the entries" do
+      conn = do_request()
 
       body = json_response(conn, 200)
 
@@ -16,8 +22,8 @@ defmodule FizzBuzzWeb.NumberControllerTest do
       assert (body["entries"] |> length) == 100
     end
 
-    test "returns the expected body with the pagination", %{conn: conn} do
-      conn = get conn, "api/numbers"
+    test "returns the expected body with the pagination" do
+      conn = do_request()
 
       body = json_response(conn, 200)
 
@@ -29,8 +35,7 @@ defmodule FizzBuzzWeb.NumberControllerTest do
     end
 
     test "returns the specified page when passing pagination values" do
-      conn = build_conn()
-      conn = get conn, "api/numbers", %{current_page: 2, page_size: 200}
+      conn = do_request(%{current_page: 2, page_size: 200})
 
       body = json_response(conn, 200)
 
