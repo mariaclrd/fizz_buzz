@@ -77,4 +77,35 @@ defmodule FizzBuzzWeb.FavouriteControllerTest do
       assert resp.status == 404
     end
   end
+
+  describe "POST /favourites" do
+    def do_html_request(params \\ %{}) do
+      conn = build_conn()
+
+      post conn, "/favourites", params
+    end
+
+    test "returns 302" do
+      resp = do_html_request(%{number: 1})
+      assert resp.status == 302
+    end
+
+    test "redirect to the first page" do
+      resp = do_html_request(%{number: 1})
+
+      location_headers = Enum.filter resp.resp_headers, fn(elm) ->
+        {key, _} = elm
+        key == "location"
+      end
+
+      [{"location", val}] = location_headers
+
+      assert val == "/"
+    end
+
+    test "it stores the favourite number" do
+      do_html_request(%{number: 1})
+      assert length(Repo.all(Favourite)) == 1
+    end
+  end
 end

@@ -33,5 +33,26 @@ defmodule FizzBuzz.Favourites.FavouriteTest do
       {:error, value} = Favourite.create(%{number: "blah"})
       assert value == :invalid
     end
+
+    test "only insert the record once" do
+      Favourite.create(%{number: 12})
+      Favourite.create(%{number: 12})
+      assert length(Repo.all(Favourite)) == 1
+    end
+  end
+
+  describe "find_by_number" do
+    test "returns the favourite if is found by number" do
+      {:ok, _favourite} = Repo.insert(%Favourite{number: 12})
+      {:ok, resource} = Favourite.find_by_number(12)
+
+      assert is_nil(resource) == false
+    end
+
+    test "returns an error is favourite is not found" do
+      {:error, message} = Favourite.find_by_number(12)
+
+      assert message == :not_found
+    end
   end
 end

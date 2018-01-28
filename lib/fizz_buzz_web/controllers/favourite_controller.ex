@@ -2,9 +2,17 @@ defmodule FizzBuzzWeb.FavouriteController do
   use FizzBuzzWeb, :controller
   alias FizzBuzz.Favourites.Favourite
 
-  def create(conn, params) do
+  def create(conn, %{"format" => "json"} = params) do
     with {:ok, favourite} <- Favourite.create(%{number: params["number"]}) do
       success_create_response(conn, favourite)
+    else
+      {:error, _} -> error_response(conn)
+    end
+  end
+
+  def create(conn, params) do
+    with {:ok, _favourite} <- Favourite.create(%{number: params["number"]}) do
+      redirect conn, to: "/"
     else
       {:error, _} -> error_response(conn)
     end

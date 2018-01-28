@@ -19,7 +19,8 @@ defmodule FizzBuzz.Favourites.Favourite do
   end
 
   def create(attrs) do
-    with {:ok, changeset} <- valid_changes(attrs) do
+    with {:ok, changeset} <- valid_changes(attrs),
+         {:error, :not_found} <- find_by_number(attrs[:number]) do
       Repo.insert(changeset)
     end
   end
@@ -29,6 +30,17 @@ defmodule FizzBuzz.Favourites.Favourite do
                  select: f,
                  where: f.id == ^id
 
+    find(query)
+  end
+
+  def find_by_number(number) do
+    query = from f in Favourite,
+                 select: f,
+                 where: f.number == ^number
+    find(query)
+  end
+
+  defp find(query) do
     case Repo.one(query) do
       nil -> {:error, :not_found}
       resource -> {:ok, resource}
