@@ -1,5 +1,6 @@
 defmodule FizzBuzzWeb.NumberControllerTest do
   use FizzBuzzWeb.ConnCase
+  alias FizzBuzz.Favourites.Favourite
 
   describe "GET /api/numbers" do
     def do_request(params \\ %{}) do
@@ -18,7 +19,17 @@ defmodule FizzBuzzWeb.NumberControllerTest do
 
       body = json_response(conn, 200)
 
-      assert (body["entries"] |> List.first) == %{"number" => 1, "fizz_buzz_value" => 1}
+      assert (body["entries"] |> List.first) == %{"number" => 1, "fizz_buzz_value" => 1, "favourite" => false}
+      assert (body["entries"] |> length) == 100
+    end
+
+    test "returns the favourite value for each element" do
+      Favourite.create(%{number: 1})
+      conn = do_request()
+
+      body = json_response(conn, 200)
+
+      assert (body["entries"] |> List.first) == %{"number" => 1, "fizz_buzz_value" => 1, "favourite" => true}
       assert (body["entries"] |> length) == 100
     end
 
@@ -39,7 +50,7 @@ defmodule FizzBuzzWeb.NumberControllerTest do
 
       body = json_response(conn, 200)
 
-      assert (body["entries"] |> List.first) == %{"number" => 201, "fizz_buzz_value" => "Fizz"}
+      assert (body["entries"] |> List.first) == %{"number" => 201, "fizz_buzz_value" => "Fizz", "favourite" => false}
       assert body["pagination"] == %{
                "total_pages" => 500_000_000,
                "current_page" => 2,
@@ -52,7 +63,7 @@ defmodule FizzBuzzWeb.NumberControllerTest do
 
       body = json_response(conn, 200)
 
-      assert (body["entries"] |> List.first) == %{"number" => 201, "fizz_buzz_value" => "Fizz"}
+      assert (body["entries"] |> List.first) == %{"number" => 201, "fizz_buzz_value" => "Fizz", "favourite" => false}
       assert body["pagination"] == %{
                "total_pages" => 500_000_000,
                "current_page" => 2,
