@@ -45,4 +45,36 @@ defmodule FizzBuzzWeb.FavouriteControllerTest do
       assert resp.status == 422
     end
   end
+
+  describe "GET /api/favourites/:id" do
+    def do_get_request(params \\ %{}) do
+      conn = build_conn()
+
+      get conn, "api/favourites/#{params[:id]}", Map.merge(%{"format" => "json"}, params)
+    end
+
+    test "returns 200" do
+      {:ok, favourite} = Repo.insert(%Favourite{number: 12})
+
+      resp = do_get_request( %{id: favourite.id} )
+      assert resp.status == 200
+    end
+
+    test "returns the expected body" do
+      {:ok, favourite} = Repo.insert(%Favourite{number: 12})
+
+      conn = do_get_request( %{id: favourite.id} )
+      body = json_response(conn, 200)
+
+      assert body == %{
+               "id" =>  favourite.id,
+               "number" => favourite.number
+             }
+    end
+
+    test "returns 404 if record not found" do
+      resp = do_get_request( %{id: 100} )
+      assert resp.status == 404
+    end
+  end
 end
