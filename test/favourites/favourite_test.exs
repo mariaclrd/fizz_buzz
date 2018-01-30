@@ -55,4 +55,26 @@ defmodule FizzBuzz.Favourites.FavouriteTest do
       assert message == :not_found
     end
   end
+
+  describe "find_for_numbers" do
+    test "returns the collection of favourites associated to the numbers" do
+      {:ok, favourite_one} =  Favourite.create(%{number: 1})
+      {:ok, favourite_two} = Favourite.create(%{number: 2})
+      {:ok, favourites} = Favourite.find_for_numbers([1,2])
+      assert favourites |> Enum.map(&(&1.id)) == [favourite_one.id, favourite_two.id]
+    end
+
+    test "returns empty array if any number of the collection has a favourite" do
+      {:ok, favourites} = Favourite.find_for_numbers([1,2])
+      assert favourites == []
+    end
+  end
+
+  describe "for numbers" do
+    test "push the found favourite to the map" do
+      {:ok, _} =  Favourite.create(%{number: 1})
+
+      assert  Favourite.for_numbers([%{number: 1}, %{number: 2}]) == [%{number: 1, favourite: true}, %{number: 2, favourite: false}]
+    end
+  end
 end

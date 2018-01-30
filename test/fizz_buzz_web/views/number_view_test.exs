@@ -5,12 +5,12 @@ defmodule FizzBuzzWeb.NumberViewTest do
   describe "entries" do
     test "only returns the entries" do
       entries = NumberView.entries(%{numbers: [1], current_page: 1, page_size: 1})
-      assert entries == [1]
+      assert entries == [%{number: 1, favourite: false, fizz_buzz_value: 1}]
     end
 
     test "allows to specify a number" do
       entries = NumberView.entries(%{numbers: [1,2,3,4,5], current_page: 1, page_size: 2})
-      assert entries == [1,2]
+      assert entries == [%{number: 1, favourite: false, fizz_buzz_value: 1}, %{number: 2, favourite: false, fizz_buzz_value: 2}]
     end
   end
 

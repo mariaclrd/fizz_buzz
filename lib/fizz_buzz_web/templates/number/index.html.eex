@@ -2,16 +2,16 @@
     <h2> List of FizzBuzz Numbers</h2>
     <%= Enum.map(entries(%{numbers: @numbers, current_page: @current_page, page_size: @page_size}), fn(n) -> %>
         <li>
-        <%= if is_favourite(n) do %>
+        <%= if n[:favourite] do %>
           <mark>
         <% end %>
-        <b> Number: </b> <%= n %>
-        <b> FizzBuzz: </b> <%= fizz_buzz_value(n) %>
-        <%= if is_favourite(n) do %>
+        <b> Number: </b> <%= n[:number] %>
+        <b> FizzBuzz: </b> <%= n[:fizz_buzz_value] %>
+        <%= if n[:favourite] do %>
                   </mark>
          <% end %>
         <%= form_for @conn, favourite_path(@conn, :create), fn f -> %>
-          <%= hidden_input f, :number, value: n%>
+          <%= hidden_input f, :number, value: n[:number]%>
           <%= submit "Mark as favourite" %>
         <% end %>
         </li>

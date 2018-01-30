@@ -25,6 +25,15 @@ defmodule FizzBuzz.Favourites.Favourite do
     end
   end
 
+  def for_numbers(numbers) do
+    {:ok, favourites} = numbers
+      |> Enum.map(&(&1[:number]))
+      |> Favourite.find_for_numbers
+
+    numbers
+      |> Enum.map(&(Map.put(&1, :favourite, Enum.any?(favourites, fn n -> n.number == &1[:number] end))))
+  end
+
   def find_by_id(id) do
     query = from f in Favourite,
                  select: f,
@@ -38,6 +47,13 @@ defmodule FizzBuzz.Favourites.Favourite do
                  select: f,
                  where: f.number == ^number
     find(query)
+  end
+
+  def find_for_numbers(number) do
+    query = from f in Favourite,
+                 select: f,
+                 where: f.number in ^number
+    {:ok, Repo.all(query) }
   end
 
   defp find(query) do

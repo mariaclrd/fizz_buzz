@@ -1,7 +1,7 @@
 defmodule FizzBuzz.Numbers.Pagination do
   def entries(collection, current_page \\ 1, page_size \\ 100) do
     first_item = (current_page - 1)*page_size
-    collection |> Enum.slice(first_item, page_size)
+    collection |> Enum.slice(first_item, page_size) |> Enum.map(&(%{number: &1}))
   end
 
 

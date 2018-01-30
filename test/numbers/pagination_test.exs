@@ -6,14 +6,14 @@ defmodule FizzBuzz.Numbers.PaginationTest do
   describe "entries" do
     test "returns the entries for an specific number and limit" do
       entries =  Number.all |> Pagination.entries(1, 100)
-      assert List.first(entries) == 1
-      assert List.last(entries) == 100
+      assert List.first(entries)[:number] == 1
+      assert List.last(entries)[:number] == 100
     end
 
     test "works also for the second number" do
       entries =  Number.all |> Pagination.entries(2, 100)
-      assert List.first(entries) == 101
-      assert List.last(entries) == 200
+      assert List.first(entries)[:number] == 101
+      assert List.last(entries)[:number] == 200
     end
   end
 
