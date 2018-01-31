@@ -10,24 +10,24 @@ defmodule FizzBuzzWeb.NumberController do
   def index(conn, %{"format" => "json"} = params) do
     params = merge_pagination_defaults(params)
 
-    numbers = Number.all
+    entries = Number.all
               |> Pagination.entries(params["current_page"], params["page_size"])
               |> Favourite.for_numbers
               |> FizzBuzzCalculator.for_numbers
 
-    render(conn, "index.json", %{numbers: numbers,
+    render(conn, "index.json", %{numbers: Number.all, entries: entries,
       current_page: params["current_page"],
       page_size: params["page_size"]})
   end
 
   def index(conn, params) do
     params = merge_pagination_defaults(params)
-    numbers = Number.all
+    entries = Number.all
               |> Pagination.entries(params["current_page"], params["page_size"])
               |> Favourite.for_numbers
               |> FizzBuzzCalculator.for_numbers
     conn
-    |> assign(:numbers, numbers)
+    |> assign(:entries, entries)
     |> assign(:current_page, to_integer(params["current_page"]))
     |> assign(:page_size, to_integer(params["page_size"]))
     |> render(:index)

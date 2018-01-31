@@ -1,6 +1,6 @@
 <div class="jumbotron">
     <h2> List of FizzBuzz Numbers</h2>
-    <%= Enum.map(@numbers, fn(n) -> %>
+    <%= Enum.map(@entries, fn(n) -> %>
         <li>
         <%= if n[:favourite] do %>
           <mark>
